@@ -10,7 +10,6 @@ navigator.serviceWorker?.register('service-worker.js').then(reg => {
 
 
 function init() {
-
 	const initialColor = location.search.match(/(color=)([0-9a-f]{6})/i)
 
 	const hexInput = document.querySelector('#hexa')
@@ -36,7 +35,6 @@ function init() {
 		IMask(el, {mask: '000'})
 	})
 	
-
 	hexInput.oninput = e => {
 		if (!e.isTrusted) return
 		let rgb = hexToRgb(e.target.value)
@@ -86,10 +84,14 @@ function init() {
 		refreshRGBInputs()
 		refreshColor(hexInput.value)
 	}
-	document.querySelector('#copy').onclick = e => {
+	document.querySelector('#copy').onclick = async e => {
 		if (!/^[0-9a-f]{6}$/i.test(hexInput.value)) return
-		navigator.clipboard.writeText(`#${hexInput.value}`)
-		alert('Copiado para o clipboard!')
+		try {
+			await navigator.clipboard.writeText(`#${hexInput.value}`)
+			alert('Copiado para o clipboard!')
+		} catch(e) {
+			alert('Falha ao copiar para o clipboard!')
+		}
 	}
 
 	function refreshRGBInputs() {
