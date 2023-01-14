@@ -8,7 +8,6 @@ navigator.serviceWorker?.register('service-worker.js').then(reg => {
 	})
 })
 
-
 function init() {
 	const initialColor = location.search.match(/(color=)([0-9a-f]{6})/i)
 
@@ -32,7 +31,11 @@ function init() {
 		}
 	})
 	document.querySelectorAll('#rgb').forEach(el => {
-		IMask(el, {mask: '000'})
+		IMask(el, {
+			mask: Number,
+			min: 0,
+			max: 255
+		})
 	})
 	
 	hexInput.oninput = e => {
@@ -46,31 +49,19 @@ function init() {
 
 	redInput.oninput = e => {
 		if (!e.isTrusted) return
-		hexInput.value = rgbToHex({
-			red: parseInt(e.target.value || '0'),
-			green: parseInt(greenInput.value || '0'),
-			blue: parseInt(blueInput.value || '0')
-		})
+		hexInput.value = rgbInputsToValue()
 		refreshColor(hexInput.value)
 	}
 
 	greenInput.oninput = e => {
 		if (!e.isTrusted) return
-		hexInput.value = rgbToHex({
-			red: parseInt(redInput.value || '0'),
-			green: parseInt(e.target.value || '0'),
-			blue: parseInt(blueInput.value || '0')
-		})
+		hexInput.value = rgbInputsToValue()
 		refreshColor(hexInput.value)
 	}
 
 	blueInput.oninput = e => {
 		if (!e.isTrusted) return
-		hexInput.value = rgbToHex({
-			red: parseInt(redInput.value || '0'),
-			green: parseInt(greenInput.value || '0'),
-			blue: parseInt(e.target.value || '0')
-		})
+		hexInput.value = rgbInputsToValue()
 		refreshColor(hexInput.value)
 	}
 
@@ -98,6 +89,14 @@ function init() {
 		redInput.value = hexToRgb(hexInput.value).red
 		greenInput.value = hexToRgb(hexInput.value).green
 		blueInput.value = hexToRgb(hexInput.value).blue
+	}
+
+	function rgbInputsToValue() {
+		return rgbToHex({
+			red: parseInt(redInput.value || '0'),
+			green: parseInt(greenInput.value || '0'),
+			blue: parseInt(blueInput.value || '0')
+		})
 	}
 }
 
