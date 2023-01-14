@@ -1,0 +1,10 @@
+{
+	"name": "declaracao-conteudo",
+	"version": "1.0.0",
+	"scripts": {
+		"serve": "http-server ./ -p 80 -c-1"
+	},
+	"devDependencies": {
+		"http-server": "^14.1.1"
+	}
+}
