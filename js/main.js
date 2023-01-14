@@ -79,7 +79,7 @@ function init() {
 		if (!/^[0-9a-f]{6}$/i.test(hexInput.value)) return
 		try {
 			await navigator.clipboard.writeText(`#${hexInput.value}`)
-			alert('Copiado para o clipboard!')
+			alert('Cor copiada para o clipboard!')
 		} catch(e) {
 			alert('Falha ao copiar para o clipboard!')
 		}

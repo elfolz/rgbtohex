@@ -13,17 +13,15 @@
 	box-sizing: border-box;
 }
 html {
+	position: fixed;
 	top: 0;
 	left: 0;
 	bottom: 0;
 	right: 0;
-	overflow: hidden;
+	background: linear-gradient(var(--color-primary), var(--color-accent));
 }
 html, body {
-	position: fixed;
-}
-body {
-	background: linear-gradient(var(--color-primary), var(--color-accent));
+	overflow: hidden;
 }
 input, mark {
 	width: 90px;
